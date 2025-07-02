@@ -1,24 +1,38 @@
 <script setup lang="ts">
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import AppSidebar from "@/components/AppSidebar.vue";
+import { Toaster } from "@/components/ui/sonner";
+// TODO: wtf?
+import "vue-sonner/style.css"; // vue-sonner v2 requires this import
 </script>
 
 <template>
   <SidebarProvider>
     <AppSidebar />
-    <SidebarInset>
-      <header
-        class="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12"
-      >
-        <div class="flex items-center gap-2 px-4">
-          <SidebarTrigger class="-ml-1" />
-          <Separator orientation="vertical" class="mr-2 h-4" />
-          Oliver
-        </div>
-      </header>
-      <div class="flex flex-1 flex-col gap-4 p-4 pt-0">
-        <RouterView />
+    <main class="min-h-screen">
+      <AppTopBar />
+      <Toaster />
+      <div class="pt-16 px-4">
+        <NuxtPage />
       </div>
-    </SidebarInset>
+    </main>
   </SidebarProvider>
 </template>
+
+<style>
+/* Slide right transition (eshop → products) */
+.slide-right-enter-active,
+.slide-right-leave-active {
+  transition: all 0.3s ease-in-out;
+}
+
+.slide-right-enter-from {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.slide-right-leave-to {
+  opacity: 0;
+  transform: translateX(100%);
+}
+</style>
